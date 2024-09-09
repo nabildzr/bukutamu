@@ -175,7 +175,7 @@ $kodeTamu = $huruf . sprintf("%03s", $urutan);
                     </div>
                     <div class="from-group row">
                         <label for="" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-8d flex justify-content-end">
+                        <div class="col-sm-8 d-flex justify-content-end">
                             <a type="button" class="btn btn-danger btn-icon-split" href="./index.php">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-chevron-left"></i>
