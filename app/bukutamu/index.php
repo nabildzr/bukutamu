@@ -10,11 +10,11 @@ require_once '../../conf/function.php';
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">User</h1>
+    <h1 class="h3 mb-4 text-gray-800">Buku Tamu</h1>
 
     <?php
     if (isset($_POST['simpan'])) {
-        if (tambah_user($_POST) > 0) {
+        if (tambah_tamu($_POST) > 0) {
     ?>
 
             <script>
@@ -39,7 +39,7 @@ require_once '../../conf/function.php';
                 <span class="icon text-white-50 d-flex justify-content-center align-items-center">
                     <i class="fas fa-plus"></i>
                 </span>
-                <span class="text">Data User</span>
+                <span class="text">Data Tamu</span>
 
             </button>
         </div>
@@ -49,10 +49,12 @@ require_once '../../conf/function.php';
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Email</th>
-                            <th>Nama User</th>
-                            <th>Password</th>
-                            <th>Role</th>
+                            <th>Tanggal</th>
+                            <th>Nama Tamu</th>
+                            <th>Alamat</th>
+                            <th>No. Telp/HP</th>
+                            <th>Bertemu Dengan</th>
+                            <th>Kepentingan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -60,17 +62,19 @@ require_once '../../conf/function.php';
                     <tbody>
                         <?php
                         $no = 1;
-                        $users = query("SELECT * FROM tb_users");
-                        foreach ($users as $user) : ?>
+                        $buku_tamu = query("SELECT * FROM tb_bukutamu");
+                        foreach ($buku_tamu as $tamu) : ?>
                             <tr>
                                 <td><?= $no++; ?></td>
-                                <td><?= $user['email'] ?></td>
-                                <td><?= $user['username'] ?></td>
-                                <td><?= $user['password'] ?></td>
-                                <td><?= $user['role'] ?></td>
+                                <td><?= $tamu['tanggal'] ?></td>
+                                <td><?= $tamu['nama_tamu'] ?></td>
+                                <td><?= $tamu['alamat'] ?></td>
+                                <td><?= $tamu['no_hp'] ?></td>
+                                <td><?= $tamu['bertemu'] ?></td>
+                                <td><?= $tamu['kepentingan'] ?></td>
                                 <td>
-                                    <a href="edit-user.php?id=<?= $user['id_user'] ?>" class="btn btn-success">Ubah</a>
-                                    <a href="javascript:void(0);" onclick="confirmDeletion('<?= $user['id_user'] ?>')" class="btn btn-danger">Hapus</a>
+                                    <a href="edit-tamu.php?id=<?= $tamu['id_tamu'] ?>" class="btn btn-success">Ubah</a>
+                                    <a href="javascript:void(0);" onclick="confirmDeletion('<?= $tamu['id_tamu'] ?>')" class="btn btn-danger">Hapus</a>
                                     <script>
                                         function confirmDeletion(id) {
                                             Swal.fire({
@@ -84,7 +88,7 @@ require_once '../../conf/function.php';
                                                 cancelButtonText: 'Batal'
                                             }).then((result) => {
                                                 if (result.isConfirmed) {
-                                                    window.location.href = 'hapus-user.php?id=' + id;
+                                                    window.location.href = 'hapus-tamu.php?id=' + id;
                                                 }
                                             })
                                         }
@@ -103,14 +107,14 @@ require_once '../../conf/function.php';
 <?php
 
 //? mengambil data barang dari tabel dengan kode terbesar 
-$query = mysqli_query($conn, "SELECT max(id_user) as kodeTerbesar FROM tb_users");
+$query = mysqli_query($conn, "SELECT max(id_tamu) as kodeTerbesar FROM tb_bukutamu");
 
 $data = mysqli_fetch_array($query);
-$kodeUser = $data['kodeTerbesar'];
+$kodeTamu = $data['kodeTerbesar'];
 
 
 //? mengambil angka dari kode barang terbesar, menggunakan fungsi substr dan di ubah ke integer dengan menggunakan (int)
-$urutan = (int) substr($kodeUser, 2, 3);
+$urutan = (int) substr($kodeTamu, 2, 3);
 
 //? nomor yang diambil akan ditambah 1 untuk menentukan nomor urut berikutnya (id)
 $urutan++;
@@ -120,7 +124,7 @@ $urutan++;
 
 //? ankga yang diambil tadi digabungkan dengan kode huruf yang kita inginkan, misalnya zt
 $huruf = "zt";
-$kodeUser = $huruf . sprintf("%03s", $urutan);
+$kodeTamu = $huruf . sprintf("%03s", $urutan);
 
 
 ?>
@@ -130,40 +134,43 @@ $kodeUser = $huruf . sprintf("%03s", $urutan);
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tambahModalLabel">Tambah User</h5>
+                <h5 class="modal-title" id="tambahModalLabel">Tambah Data Tamu</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form method="POST" action="">
-                    <input type="hidden" id="id_user" name="id_user" value="<?= $kodeUser ?>" />
-                    <div class="form-group row">
-                        <label for="email" class="col-sm-3 col-form-label">Email</label>
-                        <div class="col-sm-8">
-                            <input type="text" id="email" name="email" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="username" class="col-sm-3 col-form-label">Nama</label>
-                        <div class="col-sm-8">
-                            <input type="text" id="username" name="username" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="password" class="col-sm-3 col-form-label">Password</label>
-                        <div class="col-sm-8">
-                            <input type="text" id="password" name="password" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="role" class="col-sm-3 col-form-label">Role</label>
-                        <div class="col-sm-8">
-                            <select class="custom-select" name="role" id="role">
+                    <input type="hidden" id="id_tamu" name="id_tamu" value="<?= $kodeTamu ?>" />
 
-                                <option name="role" value="Super Admin">Super Admin</option>
-                                <option name="role" value="Operator">Operator</option>
-                            </select>
+                    <div class="form-group row">
+                        <label for="nama_tamu" class="col-sm-3 col-form-label">Nama Tamu</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="nama_tamu" name="nama_tamu" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
+                        <div class="col-sm-8">
+                            <textarea type="text" id="alamat" name="alamat" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="no_hp" class="col-sm-3 col-form-label">No. Telp/HP</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="no_hp" name="no_hp" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="bertemu" class="col-sm-3 col-form-label">Bertemu Dengan</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="bertemu" name="bertemu" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="kepentingan" class="col-sm-3 col-form-label">Kepentingan</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="kepentingan" name="kepentingan" class="form-control" />
                         </div>
                     </div>
                     <div class="from-group row">

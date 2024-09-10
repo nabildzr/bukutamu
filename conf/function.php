@@ -14,6 +14,8 @@ function query($query)
 }
 
 
+// tamu
+
 function tambah_tamu($data)
 {
     global $conn;
@@ -70,3 +72,58 @@ function hapus_tamu($id) {
     return mysqli_affected_rows($conn);
 
 }
+
+
+// users
+
+function tambah_user($data)
+{
+    global $conn;
+    $id       = htmlspecialchars($data['id_user']);
+    $email      = htmlspecialchars($data['email']);
+    $username   = htmlspecialchars($data['username']);
+    $password   = htmlspecialchars($data['password']);
+    $role       = htmlspecialchars($data['role']);  
+
+    $query = "INSERT INTO tb_users (id_user, email, username,  password, role)
+              VALUES ('$id', '$email', '$username', '$password' , '$role')";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+
+function ubah_user($data)
+{
+    global $conn;
+    $id           = htmlspecialchars($data["id_user"]);
+    $email       = htmlspecialchars($data["email"]);
+    $username    = htmlspecialchars($data["username"]);
+    $role        = htmlspecialchars($data["role"]);
+
+    $query = "UPDATE tb_users SET
+        email           = '$email',
+        username        = '$username',
+        role            = '$role'
+        WHERE id_user   = '$id'
+    ";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+
+function hapus_user($id) {
+
+    global $conn;
+
+    $query = "DELETE FROM tb_users WHERE id_user = '$id'";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+
+}
+

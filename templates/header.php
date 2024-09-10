@@ -73,6 +73,12 @@ if (
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="/bukutamu/app/bukutamu/">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Buku Tamu</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="/bukutamu/app/user/">
                     <i class="fas fa-fw fa-user"></i>
                     <span>User</span></a>
