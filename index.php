@@ -85,7 +85,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
             <div class="content">
 
-                <h2>Sign In</h2>
+                <h2>LogIn</h2>
 
                 <form action="" method="post" class="form">
 
@@ -101,9 +101,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
                     </div>
 
-                    <div class="links"> <a href="#">Forgot Password</a> <a href="#">Signup</a>
-
-                    </div>
+          
 
                     <div class="inputBox">
 
