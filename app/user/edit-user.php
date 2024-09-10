@@ -73,9 +73,8 @@ require_once '../../conf/function.php';
                     <label for="role" class="col-sm-3 col-form-label">Role</label>
                     <div class="col-sm-8">
                         <select class="custom-select" name="role" id="role">
-                            <option name="role" value="<?= $data['role'] ?>"><?= $data['role'] ?></option>
-                            <option name="role" value="Super Admin">Super Admin</option>
-                            <option name="role" value="Operator">Operator</option>
+                            <option <?= $data['role'] == 'Super Admin' ? 'selected' : '' ?> value="Super Admin">Super Admin</option>
+                            <option <?= $data['role'] == 'Operator' ? 'selected' : '' ?> value="Operator">Operator</option>
                         </select>
                     </div>
                 </div>
