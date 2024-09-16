@@ -1,0 +1,1 @@
+export the db_bukutamu.sql to phpmyadmin
