@@ -78,5 +78,5 @@ require_once('../conf/koneksi.php');
 <!-- /.container-fluid -->
 
 <?php
-include_once('../templates/footer.php');
+include_once '../templates/footer.php';
 ?>

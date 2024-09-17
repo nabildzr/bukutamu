@@ -36,13 +36,13 @@ if (
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/bukutamu/assets/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="../assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="/bukutamu/assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -165,7 +165,7 @@ if (
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['username']; ?></span>
-                                <img src="http://localhost/bukutamu/templates/as.jpg" class="img-profile rounded-circle" alt="Profile image" />
+                                <img src="https://i.pinimg.com/originals/47/c9/3e/47c93e3dcaf3067dc272145bc46ac89e.gif" class="img-profile rounded-circle" alt="Profile image" />
 
                             </a>
                             <!-- Dropdown - User Information -->

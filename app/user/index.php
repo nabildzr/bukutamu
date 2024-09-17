@@ -189,7 +189,6 @@ $kodeUser = $huruf . sprintf("%03s", $urutan);
 
 
 
-<?php include_once '../../templates/footer.php'; ?>
 
 <?php
 
@@ -239,3 +238,5 @@ if ($x = (isset($_GET['success']))) {
 }
 
 ?>
+
+<?php include_once '../../templates/footer.php'; ?>
