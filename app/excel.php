@@ -1,5 +1,6 @@
 <?php
-require_once('../conf/koneksi.php');
+require_once '../conf/koneksi.php';
+require_once '../conf/function.php';
 
 header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment; filename="laporan-buku-tamu.xls"');
@@ -11,8 +12,8 @@ if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
     $end_date = $_GET['end_date'];
 
     // Query untuk mengambil data berdasarkan periode tanggal
-    $query = "SELECT * FROM tb_bukutamu WHERE tanggal BETWEEN '$start_date' AND '$end_date'";
-    $result = mysqli_query($conn, $query);
+
+    $result = query("SELECT * FROM tb_bukutamu WHERE tanggal BETWEEN '$start_date' AND '$end_date'");
 
     ob_start();
 ?>
@@ -32,8 +33,8 @@ if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
         <tbody>
             <?php
             $no = 1;
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<tr>';
+            foreach ($result as $row) {
+                echo '<tr align="center">';
                 echo '<td>' . $no++ . '</td>';
                 echo '<td>' . $row['tanggal'] . '</td>';
                 echo '<td>' . $row['nama_tamu'] . '</td>';

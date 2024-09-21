@@ -1,6 +1,7 @@
 <?php
 include_once('../templates/header.php');
 require_once('../conf/koneksi.php');
+require_once '../conf/function.php';
 ?>
 
 <!-- Begin Page Content -->
@@ -9,25 +10,44 @@ require_once('../conf/koneksi.php');
     <h1 class="h3 mb-4  text-gray-800">Laporan</h1>
 
     <!-- Form untuk memilih periode tanggal -->
-    <form method="GET" action="">
-        <div class="form-group row">
-            <label for="start_date" class="col-sm-2 col-form-label">Tanggal Mulai</label>
-            <div class="col-sm-4">
-                <input type="date" id="start_date" name="start_date" class="form-control" required>
+    <div class="container mb-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Periode</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="">
+                            <div class="form-group row">
+                                <label for="start_date" class="col-sm-3 col-form-label">Tanggal Mulai</label>
+                                <div class="col-sm-9">
+                                    <input type="date" id="start_date" name="start_date" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="end_date" class="col-sm-3 col-form-label">Tanggal Akhir</label>
+                                <div class="col-sm-9">
+                                    <input type="date" id="end_date" name="end_date" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 text-right">
+                                    <button type="submit" name="show" class="btn btn-primary">Tampilkan Laporan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="end_date" class="col-sm-2 col-form-label">Tanggal Akhir</label>
-            <div class="col-sm-4">
-                <input type="date" id="end_date" name="end_date" class="form-control" required>
-            </div>
-        </div>
-        <button type="submit" name="show" class="btn btn-primary">Tampilkan Laporan</button>
-    </form>
+    </div>
 
 
     <div class="card shadow mb-4">
-      
+        <div class="card-header py-3">
+            <span class="text">Tabel Histori Tamu</span>
+        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -63,7 +83,7 @@ require_once('../conf/koneksi.php');
                                     <td><?= $tamu['bertemu'] ?></td>
                                     <td><?= $tamu['kepentingan'] ?></td>
                                     <td>
-                                        <a href="edit-tamu.php?id=<?= $tamu['id_tamu'] ?>" class="btn btn-success">Ubah</a>
+                                        <a href="../app/bukutamu/edit-tamu.php?id=<?= $tamu['id_tamu'] ?>" class="btn btn-success">Ubah</a>
                                         <a href="javascript:void(0);" onclick="confirmDeletion('<?= $tamu['id_tamu'] ?>')" class="btn btn-danger">Hapus</a>
                                         <script>
                                             function confirmDeletion(id) {
@@ -78,7 +98,7 @@ require_once('../conf/koneksi.php');
                                                     cancelButtonText: 'Batal'
                                                 }).then((result) => {
                                                     if (result.isConfirmed) {
-                                                        window.location.href = 'hapus-tamu.php?id=' + id;
+                                                        window.location.href = '../app/bukutamu/hapus-tamu.php?id=' + id;
                                                     }
                                                 })
                                             }
@@ -133,6 +153,8 @@ require_once('../conf/koneksi.php');
     <?php if (isset($start_date) && isset($end_date)): ?>
         <a href="excel.php?start_date=<?= $start_date ?>&end_date=<?= $end_date ?>" class="btn btn-success mt-4">Export to Excel</a>
     <?php endif; ?>
+
+    <!-- Button to export data to word -->
 </div>
 <!-- /.container-fluid -->
 
