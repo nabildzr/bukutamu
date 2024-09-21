@@ -25,7 +25,7 @@ require_once '../../conf/function.php';
         ?>
 
             <div class="alert alert-danger" role="alert">
-                Data gagal disimpan!
+                Data gagal dibuat!
             </div>
     <?php
         }

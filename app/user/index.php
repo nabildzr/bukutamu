@@ -85,7 +85,7 @@ require_once '../../conf/function.php';
                                 <td>
                                     <button type="button" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#gantiPassword" data-id="<?= $user['id_user'] ?>">
                                         <span class="text">
-                                            Ganti Password
+                                            Ubah Password
                                         </span>
                                     </button>
 

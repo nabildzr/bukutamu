@@ -78,65 +78,68 @@
 
      <?php
 
-        if ($x = isset($_GET['success'])) {
-            if ($x == 1) {
-                echo "<script>
-            Swal.fire({
-                icon: 'success',
-                text: 'Data berhasil dihapus!',
-                customClass: {
-                    popup: 'swal2-popup',
-                    title: 'swal2-title',
-                    content: 'swal2-content',
-                    confirmButton: 'swal2-confirm'
-                }
-            })
-            </script>";
-            }
-            if ($x == 2) {
-                echo "<script>
-            Swal.fire({
-                icon: 'success',
-                text: 'Data berhasil dibuat!',
-                customClass: {
-                    popup: 'swal2-popup',
-                    title: 'swal2-title',
-                    content: 'swal2-content',
-                    confirmButton: 'swal2-confirm'
-                }
-            })
-            </script>";
-            }
-            if ($x == 3) {
-                echo "<script>
-            Swal.fire({
-                icon: 'success',
-                text: 'Data berhasil disimpan!',
-                customClass: {
-                    popup: 'swal2-popup',
-                    title: 'swal2-title',
-                    content: 'swal2-content',
-                    confirmButton: 'swal2-confirm'
-                }
-            })
-            </script>";
-            }
-            if ($x == 4) {
-                echo "<script>
-            Swal.fire({
-                icon: 'success',
-                text: 'Password Berhasil di ganti!',
-                customClass: {
-                    popup: 'swal2-popup',
-                    title: 'swal2-title',
-                    content: 'swal2-content',
-                    confirmButton: 'swal2-confirm'
-                }
-            })
-            </script>";
-            }
-        }
 
+/* 
+1. $_GET['success'] yang di gunakan untuk memeriska apakah ada param success pada url
+2. Jika ada param success maka nilai yang ada pada parameter tersebut akan di ambil dan disimpan pada var $x dan pada var $x nilai yang sudah di dapatkan akan di konversi menjadi integer menggunakan intval()
+3. kemudian akan ditampilkannya alert dengan menggunakan echo yang dimana ditampilkannya itu adalah script js 
+4. document.addEventListener('DOM...) digunakan untuk memastikan script akan dijalankan setelah ter reload
+5. inisialisasi var x didalam script js yang sudah didapatkan menggunakan php ($x)
+*/
+
+        if (isset($_GET['success'])) {
+            $x = intval($_GET['success']);
+            echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var x = $x;
+            if (x == 1) {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Data berhasil dihapus!',
+                    customClass: {
+                        popup: 'swal2-popup',
+                        title: 'swal2-title',
+                        content: 'swal2-content',
+                        confirmButton: 'swal2-confirm'
+                    }
+                });
+            } else if (x == 2) {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Data berhasil dibuat!',
+                    customClass: {
+                        popup: 'swal2-popup',
+                        title: 'swal2-title',
+                        content: 'swal2-content',
+                        confirmButton: 'swal2-confirm'
+                    }
+                });
+            } else if (x == 3) {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Data berhasil diubah!',
+                    customClass: {
+                        popup: 'swal2-popup',
+                        title: 'swal2-title',
+                        content: 'swal2-content',
+                        confirmButton: 'swal2-confirm'
+                    }
+                });
+            } else if (x == 4) {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Password berhasil diubah!',
+                    customClass: {
+                        popup: 'swal2-popup',
+                        title: 'swal2-title',
+                        content: 'swal2-content',
+                        confirmButton: 'swal2-confirm'
+                    }
+                });
+            }
+        });
+    </script>";
+        }
         ?>
 
 
