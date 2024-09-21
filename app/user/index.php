@@ -27,10 +27,28 @@ require_once '../../conf/function.php';
             <div class="alert alert-danger" role="alert">
                 Data gagal disimpan!
             </div>
+        <?php
+        }
+    } else if (isset($_POST['ganti_password'])) {
+        if (ganti_password($_POST) > 0) {
+        ?>
+            <script>
+                window.location.href = './index.php?success=4';
+            </script>
+        <?php
+        } else {
+        ?>
+            <div class="alert alert-danger" role="alert">
+                Password gagal diganti!
+            </div>
     <?php
         }
     }
     ?>
+
+
+    <!-- ganti password -->
+
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -49,10 +67,8 @@ require_once '../../conf/function.php';
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Email</th>
-                            <th>Nama User</th>
-                            <th>Password</th>
-                            <th>Role</th>
+                            <th>User</th>
+                            <th>User Role</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -64,11 +80,16 @@ require_once '../../conf/function.php';
                         foreach ($users as $user) : ?>
                             <tr>
                                 <td><?= $no++; ?></td>
-                                <td><?= $user['email'] ?></td>
                                 <td><?= $user['username'] ?></td>
-                                <td><?= $user['password'] ?></td>
                                 <td><?= $user['role'] ?></td>
                                 <td>
+                                    <button type="button" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#gantiPassword" data-id="<?= $user['id_user'] ?>">
+                                        <span class="text">
+                                            Ganti Password
+                                        </span>
+                                    </button>
+
+
                                     <a href="edit-user.php?id=<?= $user['id_user'] ?>" class="btn btn-success">Ubah</a>
                                     <a href="javascript:void(0);" onclick="confirmDeletion('<?= $user['id_user'] ?>')" class="btn btn-danger">Hapus</a>
                                     <script>
@@ -110,7 +131,7 @@ $kodeUser = $data['kodeTerbesar'];
 
 
 //? mengambil angka dari kode barang terbesar, menggunakan fungsi substr dan di ubah ke integer dengan menggunakan (int)
-$urutan = (int) substr($kodeUser, 2, 3);
+$urutan = (int) substr($kodeUser, 3, 2);
 
 //? nomor yang diambil akan ditambah 1 untuk menentukan nomor urut berikutnya (id)
 $urutan++;
@@ -119,8 +140,8 @@ $urutan++;
 //? string sprintf("%03s", $urutan); berfungsi untuk membuat string menjadi 3 karakter
 
 //? ankga yang diambil tadi digabungkan dengan kode huruf yang kita inginkan, misalnya zt
-$huruf = "zt";
-$kodeUser = $huruf . sprintf("%03s", $urutan);
+$huruf = "usr";
+$kodeUser = $huruf . sprintf("%02s", $urutan);
 
 
 ?>
@@ -138,12 +159,7 @@ $kodeUser = $huruf . sprintf("%03s", $urutan);
             <div class="modal-body">
                 <form method="POST" action="">
                     <input type="hidden" id="id_user" name="id_user" value="<?= $kodeUser ?>" />
-                    <div class="form-group row">
-                        <label for="email" class="col-sm-3 col-form-label">Email</label>
-                        <div class="col-sm-8">
-                            <input type="text" id="email" name="email" class="form-control" />
-                        </div>
-                    </div>
+
                     <div class="form-group row">
                         <label for="username" class="col-sm-3 col-form-label">Nama</label>
                         <div class="col-sm-8">
@@ -157,9 +173,9 @@ $kodeUser = $huruf . sprintf("%03s", $urutan);
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="role" class="col-sm-3 col-form-label">Role</label>
+                        <label for="role" class="col-sm-3 col-form-label">User Role</label>
                         <div class="col-sm-8">
-                            <select class="custom-select" name="role" id="role">
+                            <select class="form-control" name="role" id="role">
 
                                 <option name="role" value="Super Admin">Super Admin</option>
                                 <option name="role" value="Operator">Operator</option>
@@ -186,57 +202,52 @@ $kodeUser = $huruf . sprintf("%03s", $urutan);
     </div>
 </div>
 
+<!-- ganti password -->
+
+
+
+<div class="modal fade" id="gantiPassword" tabindex="-1" aria-labelledby="gantiPasswordLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="gantiPasswordLabel">Ganti Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="">
+                    <input type="hidden" id="id_user" name="id_user" value="<?= $kodeUser ?>" />
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-3 col-form-label">Password</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="password" name="password" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="from-group row">
+                        <label for="" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-8 d-flex justify-content-end">
+                            <a type="button" class="btn btn-danger btn-icon-split" href="./index.php">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-chevron-left"></i>
+                                </span>
+                                <span class="text">Kembali</span>
+                            </a>
+                            <button type="submit" name="ganti_password" class="btn btn-primary">Simpan</button>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
 
-<?php
 
-if ($x = (isset($_GET['success']))) {
-    if ($x == 1) {
-        echo "<script>
-            Swal.fire({
-                icon: 'success',
-                text: 'Data berhasil dihapus!',
-                customClass: {
-                    popup: 'swal2-popup',
-                    title: 'swal2-title',
-                    content: 'swal2-content',
-                    confirmButton: 'swal2-confirm'
-                }
-            })
-            </script>";
-    }
-    if ($x == 2) {
-        echo "<script>
-            Swal.fire({
-                icon: 'success',
-                text: 'Data berhasil dibuat!',
-                customClass: {
-                    popup: 'swal2-popup',
-                    title: 'swal2-title',
-                    content: 'swal2-content',
-                    confirmButton: 'swal2-confirm'
-                }
-            })
-            </script>";
-    }
-    if ($x == 3) {
-        echo "<script>
-            Swal.fire({
-                icon: 'success',
-                text: 'Data berhasil disimpan!',
-                customClass: {
-                    popup: 'swal2-popup',
-                    title: 'swal2-title',
-                    content: 'swal2-content',
-                    confirmButton: 'swal2-confirm'
-                }
-            })
-            </script>";
-    }
-}
 
-?>
 
 <?php include_once '../../templates/footer.php'; ?>

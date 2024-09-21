@@ -56,18 +56,8 @@ require_once '../../conf/function.php';
                         <input type="text" id="username" name="username" class="form-control" value="<?= $data['username'] ?>" />
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="nama_tamu" class="col-sm-3 col-form-label">Email</label>
-                    <div class="col-sm-8">
-                        <input type="text" id="email" name="email" class="form-control" value="<?= $data['email'] ?>" />
-                    </div>
-                </div>
-                <div class=" form-group row">
-                    <label for="password" class="col-sm-3 col-form-label">Password</label>
-                    <div class="col-sm-8">
-                        <input type="text" id="password" name="password" class="form-control" value="<?= $data['password'] ?>" />
-                    </div>
-                </div>
+
+
 
                 <div class=" form-group row">
                     <label for="role" class="col-sm-3 col-form-label">Role</label>

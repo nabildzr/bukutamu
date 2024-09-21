@@ -2,26 +2,62 @@
 require_once('conf/koneksi.php');
 session_start();
 
+// check if user has logged in or not,  if not (false) then redirect to login page
 if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] === true) {
     header('Location: app/index.php');
     exit();
 }
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
+
+// before use hash sha256
+// if (isset($_POST['username']) && isset($_POST['password'])) {
+//     $username = $_POST['username'];
+//     $password = $_POST['password'];
+
+//     $query = "SELECT * FROM tb_users WHERE username = '$username' AND password = '$password'";
+//     $result = mysqli_query($conn, $query);
+//     $rows = mysqli_num_rows($result);
+
+//     // if username and password has wrong, use buku-tamu.php?error=1
+//     if ($rows > 0) {
+//         // Login successful, redirect to buku-tamu.php
+//         $_SESSION['username'] = $username;
+//         $_SESSION['isLogin'] = true;
+//         header("Location: app/index.php");
+//         exit();
+//     } else {
+//         header("Location: index.php?error=1");
+//         // Login failed, redirect to buku-tamu.php with error=1
+//         exit();
+//     }
+// }
+
+
+// after use hash sha256
+
+if (isset($_POST['username']) && isset($_POST['password'])
+) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM tb_users WHERE username = '$username' AND password = '$password'";
+    $query = "SELECT * FROM tb_users WHERE username = '$username'";
     $result = mysqli_query($conn, $query);
     $rows = mysqli_num_rows($result);
 
     // if username and password has wrong, use buku-tamu.php?error=1
     if ($rows > 0) {
-        // Login successful, redirect to buku-tamu.php
-        $_SESSION['username'] = $username;
-        $_SESSION['isLogin'] = true;
-        header("Location: app/index.php");
-        exit();
+        $user = mysqli_fetch_assoc($result);
+        if (password_verify($password, $user['password'])) {
+            // Login successful, redirect to buku-tamu.php
+            $_SESSION['username'] = $username;
+            $_SESSION['isLogin'] = true;
+            header("Location: app/index.php");
+            exit();
+        } else {
+            header("Location: index.php?error=1");
+            // Login failed, redirect to buku-tamu.php with error=1
+            exit();
+        }
     } else {
         header("Location: index.php?error=1");
         // Login failed, redirect to buku-tamu.php with error=1

@@ -61,7 +61,8 @@ function ubah_tamu($data)
 }
 
 
-function hapus_tamu($id) {
+function hapus_tamu($id)
+{
 
     global $conn;
 
@@ -70,7 +71,6 @@ function hapus_tamu($id) {
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
-
 }
 
 
@@ -79,14 +79,14 @@ function hapus_tamu($id) {
 function tambah_user($data)
 {
     global $conn;
-    $id       = htmlspecialchars($data['id_user']);
-    $email      = htmlspecialchars($data['email']);
+    $id         = htmlspecialchars($data['id_user']);
     $username   = htmlspecialchars($data['username']);
     $password   = htmlspecialchars($data['password']);
-    $role       = htmlspecialchars($data['role']);  
+    $role       = htmlspecialchars($data['role']);
 
-    $query = "INSERT INTO tb_users (id_user, email, username,  password, role)
-              VALUES ('$id', '$email', '$username', '$password' , '$role')";
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO tb_users (id_user, username, password, role) VALUES ('$id','$username', '$password_hash' , '$role')";
 
     mysqli_query($conn, $query);
 
@@ -98,12 +98,10 @@ function ubah_user($data)
 {
     global $conn;
     $id           = htmlspecialchars($data["id_user"]);
-    $email       = htmlspecialchars($data["email"]);
     $username    = htmlspecialchars($data["username"]);
     $role        = htmlspecialchars($data["role"]);
 
     $query = "UPDATE tb_users SET
-        email           = '$email',
         username        = '$username',
         role            = '$role'
         WHERE id_user   = '$id'
@@ -115,7 +113,8 @@ function ubah_user($data)
 }
 
 
-function hapus_user($id) {
+function hapus_user($id)
+{
 
     global $conn;
 
@@ -124,6 +123,22 @@ function hapus_user($id) {
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
-
 }
 
+function ganti_password($data)
+{
+    global $conn;
+    $id               = htmlspecialchars($data["id_user"]);
+    $password         = htmlspecialchars($data["password"]);
+    $password_hash    = password_hash($password, PASSWORD_DEFAULT);
+
+    $query = "UPDATE tb_users SET
+        password = '$password_hash'
+        WHERE id_user = '$id'
+    ";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+?>
