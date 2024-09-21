@@ -12,9 +12,9 @@ require_once '../conf/function.php';
     <!-- Form untuk memilih periode tanggal -->
     <div class="container mb-4">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
+            <div class="col-md-8 ">
+                <div class="card border-left-primary">
+                    <div class="card-header  text-primary">
                         <h4 class="mb-0">Periode</h4>
                     </div>
                     <div class="card-body">
