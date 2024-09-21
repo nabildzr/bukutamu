@@ -131,6 +131,7 @@ function ganti_password($data)
     $id               = htmlspecialchars($data["id_user"]);
     $password         = htmlspecialchars($data["password"]);
     $password_hash    = password_hash($password, PASSWORD_DEFAULT);
+    // $hashed = hash("sha256", $password);
 
     $query = "UPDATE tb_users SET
         password = '$password_hash'
