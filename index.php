@@ -33,7 +33,7 @@ if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] === true) {
 // }
 
 
-// after use hash sha256
+// after use hash 
 
 if (isset($_POST['username']) && isset($_POST['password'])
 ) {
