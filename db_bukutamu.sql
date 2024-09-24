@@ -1,5 +1,5 @@
 -- --------------------------------------------------------
--- Host:                         localhost
+-- Host:                         127.0.0.1
 -- Server version:               8.0.30 - MySQL Community Server - GPL
 -- Server OS:                    Win64
 -- HeidiSQL Version:             12.1.0.6537
@@ -30,11 +30,12 @@ CREATE TABLE IF NOT EXISTS `tb_bukutamu` (
   `kepentingan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table db_bukutamu.tb_bukutamu: ~3 rows (approximately)
+-- Dumping data for table db_bukutamu.tb_bukutamu: ~2 rows (approximately)
 REPLACE INTO `tb_bukutamu` (`id_tamu`, `tanggal`, `nama_tamu`, `alamat`, `no_hp`, `bertemu`, `kepentingan`) VALUES
 	('zt001', '2024-09-10', 'Riyanto', 'Gombong', '6281291241', 'Pak Azhar', 'Mengurus Surat '),
 	('zt002', '2024-09-21', '2111', '2', '2', '22', '222'),
-	('zt003', '2024-09-21', '12312', '31231', '3121', '', '312131');
+	('zt003', '2024-09-21', '12312', '31231', '3121', '', '312131'),
+	('zt004', '2024-09-23', '142', '12121', '41', '4124142', '142142');
 
 -- Dumping structure for table db_bukutamu.tb_users
 CREATE TABLE IF NOT EXISTS `tb_users` (
