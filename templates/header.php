@@ -1,8 +1,12 @@
 <?php
 
+
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+
 
 if (
     !isset($_SESSION['isLogin']) && $_SESSION['isLogin']
@@ -78,12 +82,18 @@ if (
                     <span>Buku Tamu</span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/bukutamu/app/user/">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>User</span></a>
-            </li>
-
+<?php
+if ($_SESSION['role'] == 'Super Admin') {
+?>
+<li class="nav-item">
+    <a class="nav-link" href="/bukutamu/app/user/">
+        <i class="fas fa-fw fa-user"></i>
+        <span>User</span>
+    </a>
+</li>
+<?php
+}
+?>
             <li class="nav-item">
                 <a class="nav-link" href="/bukutamu/app/laporan.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -164,7 +174,7 @@ if (
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['username']; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 xl small"><?= $_SESSION['username']; ?></span>
                                 <img src="https://i.pinimg.com/originals/47/c9/3e/47c93e3dcaf3067dc272145bc46ac89e.gif" class="img-profile rounded-circle" alt="Profile image" />
 
                             </a>

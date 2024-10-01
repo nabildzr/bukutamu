@@ -3,6 +3,9 @@
 include_once '../../templates/header.php';
 require_once '../../conf/function.php';
 
+require_once 'redirect.php';
+
+
 ?>
 
 

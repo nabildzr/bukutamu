@@ -1,6 +1,16 @@
 <?php
+session_start();
+
+if (
+    !isset($_SESSION['isLogin']) && $_SESSION['isLogin']
+    !== true
+) {
+    header('Location: ../index.php');
+    exit();
+}
 
 require_once('../../conf/function.php');
+
 
 // jika ada id
 if (isset($_GET['id'])) {
@@ -13,5 +23,7 @@ if (isset($_GET['id'])) {
         echo "<script>alert('Data gagal di hapus')</script>";
     }
 }
+
+require_once('redirect.php');
 
 ?>

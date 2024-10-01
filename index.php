@@ -47,6 +47,8 @@ if (isset($_POST['username']) && isset($_POST['password'])
     // if username and password has wrong, use buku-tamu.php?error=1
     if ($rows > 0) {
         $user = mysqli_fetch_assoc($result);
+            $_SESSION['role'] = $user['role'];                                  
+
         if (password_verify($password, $user['password'])) {
             // Login successful, redirect to buku-tamu.php
             $_SESSION['username'] = $username;
